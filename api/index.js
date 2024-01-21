@@ -16,7 +16,6 @@ mongoose
     console.log(err);
   });
 
-
 // creating backend server
 const app = express();
 
@@ -30,3 +29,14 @@ app.listen(3000, () => {
 // test apis : use(base_url, route_name)
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
+
+//middleware to handle errors
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  res.status(statusCode).json({
+    success: false,
+    status: statusCode,
+    message: message,
+  });
+});

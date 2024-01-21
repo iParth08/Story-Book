@@ -68,4 +68,6 @@
     - validation of input / blank data handle
     - hashing the password
     - saving to database and catching error
-    - 
+  
+- Error Handling Middleware
+  - in index.js and error handler
