@@ -5,7 +5,9 @@
 1. React
 2. Tailwind CSS
 3. Flowbite - Tailwind Component Library
-4. MongoDB
+4. ExpressJs - for backend
+5. MongoDB
+6. Mongoose
 
 ## Features
 
@@ -29,3 +31,28 @@
   //while setting flowbite in content []
   "node_modules/flowbite-react/lib/esm/**/*.{js,ts,jsx,tsx}",
   ```
+
+> 21st January 2024
+- Setting Server using Expressjs
+  - installed `mongoose`
+  - Basic template created
+  - Backend structured in root folder
+   
+- Database Creation and Integration
+  - database created in Mongo
+  - install & configure `dotenve`
+  - `mongoose.connect` to connect to the database
+
+```js
+  npm i dotenv
+
+  import dotenv from "dotenve";
+
+  dotenv.config();
+
+  const var = process.env.VARIABLE // VARIABLE = VALUE
+
+```
+  
+
+
