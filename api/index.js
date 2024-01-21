@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoutes from "./routes/user.route.js";
+import authRoutes from "./routes/auth.route.js";
 
 //TODO: USE ENVIRONMENT VARIABLES
 dotenv.config();
@@ -28,3 +29,4 @@ app.listen(3000, () => {
 
 // test apis : use(base_url, route_name)
 app.use("/api/user", userRoutes);
+app.use("/api/auth", authRoutes);

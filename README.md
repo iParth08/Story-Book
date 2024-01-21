@@ -53,12 +53,19 @@
   const var = process.env.VARIABLE // VARIABLE = VALUE
 
 ```
-- Creating Models 
+- Creating Models :: rules and schema
   - User Schema and Model Created
   - 
 
-- Creating Routes 
+- Creating Routes :: links 
   - User Route created
-  -  
+  - Sign-Up Route
 
-
+- Creating Controllers :: logic to act on the link
+  - user controller
+  - signup controller
+    - taking body
+    - validation of input / blank data handle
+    - hashing the password
+    - saving to database and catching error
+    - 
