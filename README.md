@@ -53,8 +53,12 @@
   const var = process.env.VARIABLE // VARIABLE = VALUE
 
 ```
-- Creating Model 
+- Creating Models 
   - User Schema and Model Created
-  
+  - 
+
+- Creating Routes 
+  - User Route created
+  -  
 
 
