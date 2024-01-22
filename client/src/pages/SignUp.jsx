@@ -1,8 +1,57 @@
-import { Button, Label, TextInput } from "flowbite-react";
-import React from "react";
-import { Link } from "react-router-dom";
+import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const [formData, setFormData] = useState({});
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    //loading animation
+    setLoading(true);
+
+    //not filled form error
+    if (!formData.email || !formData.password || !formData.username) {
+      setLoading(false);
+      return setErrorMessage("Please fill all the fields");
+    }
+
+    try {
+      //preparing form data to send by post request
+      const res = await fetch("api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      setLoading(false);
+
+      //convert into data for further use
+      const data = await res.json();
+
+        //error when submitted form : from backend
+        if(data.success === false){
+          return setErrorMessage(data.message);
+        }
+
+        //navigate to sign-in if all ok
+        if(res.ok){
+          navigate("/sign-in");
+        }
+    } catch (error) {
+      setErrorMessage(error.message);
+      setLoading(false);
+    }
+  };
   return (
     <div className="min-h-screen mt-20">
       <div className="flex p-3 max-w-5xl mx-auto flex-col md:flex-row md:items-center gap-5">
@@ -24,30 +73,65 @@ const SignUp = () => {
 
         {/* right */}
         <div className="flex-1">
-          <form className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <div>
               <Label value="Your Username" />
-              <TextInput id="username" type="text" placeholder="John Wick" />
+              <TextInput
+                id="username"
+                type="text"
+                placeholder="John Wick"
+                onChange={handleChange}
+              />
             </div>
             <div>
               <Label value="Your Email" />
-              <TextInput id="email" type="text" placeholder="dontyoudare@kill.mydog" />
+              <TextInput
+                id="email"
+                type="email"
+                placeholder="dontyoudare@kill.mydog"
+                onChange={handleChange}
+              />
             </div>
             <div>
               <Label value="Your Password" />
-              <TextInput id="password" type="text" placeholder="********" />
+              <TextInput
+                id="password"
+                type="password"
+                placeholder="********"
+                onChange={handleChange}
+              />
             </div>
-            <Button gradientDuoTone="purpleToPink" type="submit">Submit</Button>
+            <Button
+              gradientDuoTone="purpleToPink"
+              type="submit"
+              disabled={loading}
+            >
+              {
+                loading ? (
+                  <>
+                    <Spinner  size={"sm"}/>
+                    <span className="pl-3">Loading...</span>
+                  </>
+                ) : "Sign Up"
+              }
+            </Button>
           </form>
 
           {/* // TODO: Google Authentication Here */}
-          
+
           <div className="flex gap-2 text-sm mt-5">
             <span>Already have an account?</span>
             <Link to="/sign-in" className="text-blue-500">
               Sign In
             </Link>
           </div>
+
+          {/* Show error message */}
+          {errorMessage && (
+            <Alert className="mt-5" color={"failure"}>
+              {errorMessage}
+            </Alert>
+          )}
         </div>
       </div>
     </div>

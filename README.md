@@ -68,11 +68,26 @@
   - signup controller
     - taking body
     - validation of input / blank data handle
-    - hashing the password
+    - hashing the password :: encrypted only
     - saving to database and catching error
   
 - Error Handling Middleware
   - in index.js and error handler
 
 > 22nd January 2024
-> 
+
+- Frontend UI
+  - Sign Up page UI
+  - No google auth ye {!important}
+- Backend Features
+  - Configure Proxy : *set a bridge between frontend and backend*
+  - Sign Up functionality :: Success by post request
+  - Loading
+  - Naviagte on Success
+  - Alert error 
+
+
+<!-- ! ALERTS -->
+1. Payload in Network can expose data in current scenario
+2. No password strength check here
+3. 

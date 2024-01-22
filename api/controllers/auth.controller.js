@@ -30,7 +30,7 @@ const signup = async (req, res, next) => {
   //save to database
   try {
     await newUser.save();
-    res.status(200).send("Data saved");
+    res.status(200).send({message : "Data saved"});
   } catch (error) {
     next(error);
   }
