@@ -10,7 +10,9 @@
 6. Mongoose
 
 ## Features
-
+1. Database Integrated
+2. CRUD Operation
+3. Authentication and Google OAuth
 
 ## Daily Progress
 > 20th January 2024
@@ -71,3 +73,6 @@
   
 - Error Handling Middleware
   - in index.js and error handler
+
+> 22nd January 2024
+> 
