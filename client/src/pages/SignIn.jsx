@@ -1,12 +1,16 @@
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux"; 
+import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice";
 
 const SignIn = () => {
-  const [formData, setFormData] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  
+  const [formData, setFormData] = useState({});
+  const { error: errorMessage, loading } = useSelector((state) => state.user);
+  //set dispatch
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -14,16 +18,14 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //loading animation
-    setLoading(true);
 
     //not filled form error
     if ( !formData.email || !formData.password) {
-      setLoading(false);
-      return setErrorMessage("Please fill all the fields");
+      return dispatch(signInFailure("Please fill all the fields"));
     }
 
     try {
+      dispatch(signInStart());
       //preparing form data to send by post request
       const res = await fetch("api/auth/signin", {
         method: "POST",
@@ -33,23 +35,21 @@ const SignIn = () => {
         body: JSON.stringify(formData),
       });
 
-      setLoading(false);
-
       //convert into data for further use
       const data = await res.json();
 
       //error when submitted form : from backend
       if (data.success === false) {
-        return setErrorMessage(data.message);
+        dispatch(signInFailure(data.message));
       }
 
       //navigate to sign-in if all ok
       if (res.ok) {
+        dispatch(signInSuccess(data));
         navigate("/");
       }
     } catch (error) {
-      setErrorMessage(error.message);
-      setLoading(false);
+      dispatch(signInFailure(error.message));
     }
   };
   return (

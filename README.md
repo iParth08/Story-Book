@@ -101,7 +101,10 @@
   - Backend Functionality
   - Frontend Design Done
   
--  
+-  Setting Redux Toolkit :: manage States {useState, useReducer}
+   -  Created Store
+   -  Created User Slice : SignIn reducers
+   -  Use in Sign in 
 
 
 
