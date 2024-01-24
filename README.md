@@ -99,12 +99,16 @@
 > 24th January 2024
 - Sign-In Page Created
   - Backend Functionality
+    - JWT authentication also
   - Frontend Design Done
   
--  Setting Redux Toolkit :: manage States {useState, useReducer}
+-  Setting Redux Toolkit : In Frontend 
+   -  manage States {useState, useReducer}
    -  Created Store
    -  Created User Slice : SignIn reducers
    -  Use in Sign in 
+   -  Add Redux Persist :: handle localstorage
+- 
 
 
 
