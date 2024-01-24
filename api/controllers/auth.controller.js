@@ -31,31 +31,30 @@ const signup = async (req, res, next) => {
   //save to database
   try {
     await newUser.save();
-    res.status(200).send({message : "Data saved"});
+    res.status(200).send({ message: "Data saved" });
   } catch (error) {
     next(error);
   }
 };
 
-
 const signin = async (req, res, next) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   //check if fields are blank
-  if(!username || !password || username === "" || password === "") {
+  if (!email || !password || email === "" || password === "") {
     next(errorHandler(400, "Please fill all the fields"));
   }
 
   //try searching user and verify password
   try {
-    const validUser = await User.findOne({ username });
-    if(!validUser) {
+    const validUser = await User.findOne({ email });
+    if (!validUser) {
       return next(errorHandler(404, "Invalid Credentials"));
     }
 
     //compare password after decrypting
     const validPassword = bcrypt.compareSync(password, validUser.password);
-    if(!validPassword) {
+    if (!validPassword) {
       return next(errorHandler(400, "Invalid Credentials"));
     }
 
@@ -66,14 +65,10 @@ const signin = async (req, res, next) => {
     const { password: hashedPassword, ...rest } = validUser._doc;
     res
       .status(200)
-      .cookie("access_token", token, {httpOnly: true})
-      .json({ message: "Login Successful", user: rest, access_token : token });
-    
-    
-    
+      .cookie("access_token", token, { httpOnly: true })
+      .json({ message: "Login Successful", user: rest, access_token: token });
   } catch (error) {
     next(error);
   }
-
-}
+};
 export { signup, signin };
