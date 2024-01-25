@@ -78,7 +78,6 @@ const googleAuth = async (req, res, next) => {
   try {
     //find if user already exists
     const user = await User.findOne({ email });
-    console.log(user);
     if (user) {
       const token = generateToken(user._id);
       const { password, ...rest } = user._doc;
@@ -113,14 +112,14 @@ const googleAuth = async (req, res, next) => {
       //generate authentication token
       const token = generateToken(newUser._id);
       const { password, ...rest } = newUser._doc;
-      res.status(200).cookie("access_token", token, { httpOnly: true }).json({
-        message: "Login Successful",
-        user: rest,
-        access_token: token,
-      });
+      res
+        .status(200)
+        .cookie("access_token", token, { httpOnly: true })
+        .json({ message: "Successful Login", user: rest, access_token: token });
     }
   } catch (error) {
     next(error);
   }
 };
+
 export { signup, signin, googleAuth };
