@@ -113,6 +113,11 @@
   - create new firebase project
   - install firebase
   - create new env file
+
+> 25th January 2024
+
+- Header Upadated
+  - Frontend of SignIn and User dropdown
   - 
 
 
