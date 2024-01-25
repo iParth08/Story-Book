@@ -71,4 +71,56 @@ const signin = async (req, res, next) => {
     next(error);
   }
 };
-export { signup, signin };
+
+const googleAuth = async (req, res, next) => {
+  const { name, email, googlePhoto } = req.body;
+
+  try {
+    //find if user already exists
+    const user = await User.findOne({ email });
+    console.log(user);
+    if (user) {
+      const token = generateToken(user._id);
+      const { password, ...rest } = user._doc;
+      res
+        .status(200)
+        .cookie("access_token", token, { httpOnly: true })
+        .json({ message: "Welcome Back", user: rest, access_token: token });
+    }
+    //  create new user with a auto-generated strong password
+    else {
+      //generate strong password
+      const generatedPassword =
+        Math.random().toString(36).slice(-8) +
+        name +
+        Math.random().toString(36).slice(-8);
+
+      const hashedPassword = bcrypt.hashSync(generatedPassword, 10);
+
+      //create new user from User Schema
+      const newUser = new User({
+        username:
+          name.toLowerCase().split(" ").join("") +
+          Math.random().toString(9).slice(-4),
+        email,
+        password: hashedPassword,
+        profilePic: googlePhoto,
+      });
+
+      //save into database
+      await newUser.save();
+
+      //generate authentication token
+      const token = generateToken(newUser._id);
+      const { password, ...rest } = newUser._doc;
+      res.status(200).cookie("access_token", token, { httpOnly: true }).json({
+        message: "Login Successful",
+        user: rest,
+        access_token: token,
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+export { signup, signin, googleAuth };

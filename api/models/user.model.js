@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    profilePic: {
+      type: String,
+      default: "https://wallpapercave.com/wp/wp10142854.jpg",
+    },
   },
   { timestamps: true }
 );

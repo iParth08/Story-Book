@@ -1,6 +1,7 @@
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import OAuth from "../components/OAuth";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
@@ -38,15 +39,15 @@ const SignUp = () => {
       //convert into data for further use
       const data = await res.json();
 
-        //error when submitted form : from backend
-        if(data.success === false){
-          return setErrorMessage(data.message);
-        }
+      //error when submitted form : from backend
+      if (data.success === false) {
+        return setErrorMessage(data.message);
+      }
 
-        //navigate to sign-in if all ok
-        if(res.ok){
-          navigate("/sign-in");
-        }
+      //navigate to sign-in if all ok
+      if (res.ok) {
+        navigate("/sign-in");
+      }
     } catch (error) {
       setErrorMessage(error.message);
       setLoading(false);
@@ -106,18 +107,18 @@ const SignUp = () => {
               type="submit"
               disabled={loading}
             >
-              {
-                loading ? (
-                  <>
-                    <Spinner  size={"sm"}/>
-                    <span className="pl-3">Loading...</span>
-                  </>
-                ) : "Sign Up"
-              }
+              {loading ? (
+                <>
+                  <Spinner size={"sm"} />
+                  <span className="pl-3">Loading...</span>
+                </>
+              ) : (
+                "Sign Up"
+              )}
             </Button>
+            {/*  Google Authentication Here */}
+            <OAuth />
           </form>
-
-          {/* // TODO: Google Authentication Here */}
 
           <div className="flex gap-2 text-sm mt-5">
             <span>Already have an account?</span>

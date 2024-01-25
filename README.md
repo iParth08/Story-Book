@@ -108,7 +108,12 @@
    -  Created User Slice : SignIn reducers
    -  Use in Sign in 
    -  Add Redux Persist :: handle localstorage
-- 
+  
+- Google OAuth in Frontend
+  - create new firebase project
+  - install firebase
+  - create new env file
+  - 
 
 
 

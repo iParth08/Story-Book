@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"; 
 import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice";
+import OAuth from "../components/OAuth";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -67,7 +68,8 @@ const SignIn = () => {
           <p className="text-sm mt-5">
             This project is a collection of my stories. I hope you enjoy it.
             <br />
-            Sign-In with Username and Password or Google Mail <br /> to get started and create your own <b>Stories</b>.
+            Sign-In with Username and Password or Google Mail <br /> to get
+            started and create your own <b>Stories</b>.
           </p>
         </div>
 
@@ -106,9 +108,10 @@ const SignIn = () => {
                 "Sign In"
               )}
             </Button>
+            
+            {/* //  Google Authentication Here */}
+            <OAuth />
           </form>
-
-          {/* // TODO: Google Authentication Here */}
 
           <div className="flex gap-2 text-sm mt-5">
             <span>Don't have an account?</span>
