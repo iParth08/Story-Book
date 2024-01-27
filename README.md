@@ -118,7 +118,9 @@
 
 - Header Upadated
   - Frontend of SignIn and User dropdown
-  - 
+  - Dark mode completed
+  
+> 27th January 2024
 
 
 
