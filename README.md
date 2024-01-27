@@ -14,6 +14,7 @@
 1. Database Integrated
 2. CRUD Operation
 3. Authentication and Google OAuth
+4. Redirect if not allowed **important**
 
 ## Daily Progress
 
@@ -121,7 +122,9 @@
   - Dark mode completed
   
 > 27th January 2024
-
+- Private Routes
+  - Authentic entry only
+  - Else redirect to home/current
 
 
 
